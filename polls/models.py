@@ -5,8 +5,8 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from django.contrib.auth.models import User
 
 
-class SuggestionBox(models.Model):
-    owner = models.ForeignKey(
+class Topic(models.Model):
+    submitter = models.ForeignKey(
         User,
         null=True
     )
@@ -22,14 +22,15 @@ class SuggestionBox(models.Model):
         default=datetime.now
     )
 
-    class Meta:
-        verbose_name_plural = "suggestion boxes"
-
 
 class Suggestion(models.Model):
     suggestion_box = models.ForeignKey(
-        SuggestionBox,
+        Topic,
         on_delete=models.CASCADE
+    )
+    submitter = models.ForeignKey(
+        User,
+        null=True
     )
     name = models.TextField(
         blank=False,
@@ -52,6 +53,10 @@ class Comment(models.Model):
         Suggestion,
         on_delete=models.CASCADE
     )
+    submitter = models.ForeignKey(
+        User,
+        null=True
+    )
     text = models.TextField(
         blank=False,
         null=False,
@@ -66,6 +71,10 @@ class Vote(models.Model):
     suggestion = models.ForeignKey(
         Suggestion,
         on_delete=models.CASCADE
+    )
+    submitter = models.ForeignKey(
+        User,
+        null=True
     )
     opinion = models.IntegerField(
         default=0,

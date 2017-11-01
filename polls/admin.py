@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import SuggestionBox, Suggestion, Comment, Vote
+from .models import Topic, Suggestion, Comment, Vote
 
 
 class CommentInline(admin.StackedInline):
@@ -13,7 +13,7 @@ class VoteInline(admin.StackedInline):
     extra = 0
 
 
-class SuggestionBoxAdmin(admin.ModelAdmin):
+class TopicAdmin(admin.ModelAdmin):
     list_display = ["name", "description", "date_created"]
     list_filter = ["date_created"]
     search_fields = ["name", "description"]
@@ -32,6 +32,6 @@ class CommentAdmin(admin.ModelAdmin):
     search_fields = ["text"]
 
 
-admin.site.register(SuggestionBox, SuggestionBoxAdmin)
+admin.site.register(Topic, TopicAdmin)
 admin.site.register(Suggestion, SuggestionAdmin)
 admin.site.register(Comment, CommentAdmin)
