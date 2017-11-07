@@ -9,6 +9,3 @@ ADD requirements.txt /code/
 ADD . /code/
 
 RUN pip install -r requirements.txt
-
-COPY ./entrypoint.sh /
-RUN chmod +x entrypoint.sh
