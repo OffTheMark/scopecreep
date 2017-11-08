@@ -63,3 +63,9 @@ class TopicsView(generic.ListView):
 
     def get_queryset(self):
         return Topic.objects.all()
+
+
+class TopicView(generic.DetailView):
+    template_name = "polls/topic.html"
+    model = Topic
+

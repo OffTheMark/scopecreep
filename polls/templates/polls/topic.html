@@ -1,0 +1,10 @@
+{% extends "polls/base.html" %}
+
+{% block title %}{{ topic.name }} | ScopeCreep{% endblock %}
+
+{% block template_content %}
+    <h1>{{ topic.name }}</h1>
+    <p>
+        {{ topic.description }}
+    </p>
+{% endblock %}
