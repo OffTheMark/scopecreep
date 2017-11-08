@@ -1,0 +1,17 @@
+{% extends "polls/base.html" %}
+
+{% block title %}Topics | ScopeCreep{% endblock %}
+
+{% block template_content %}
+    <h1>Topics</h1>
+
+    <ul>
+        {% for topic in topic_list.all %}
+            <li>
+                <a href="{% url "polls:topic" topic.id %}">
+                    {{ topic.name }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

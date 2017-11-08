@@ -7,6 +7,7 @@ from django.urls import reverse
 from django.views import generic
 
 from .forms import LoginForm, SignupForm
+from .models import Topic
 
 
 @login_required
@@ -54,3 +55,11 @@ class SignupView(generic.FormView):
 
     def get_success_url(self):
         return reverse("polls:index")
+
+
+class TopicsView(generic.ListView):
+    template_name = "polls/topics.html"
+    context_object_name = 'topic_list'
+
+    def get_queryset(self):
+        return Topic.objects.all()
