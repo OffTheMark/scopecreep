@@ -1,0 +1,33 @@
+<ul>
+    <li>
+        <a href="{% url "polls:index" %}">
+            ScopeCreep
+        </a>
+    </li>
+    {% if user.is_authenticated %}
+        <li>
+            <a href="{% url "polls:topics" %}">
+                Topics
+            </a>
+        </li>
+        <li>
+            <form class="form-inline" method="post" action="{% url 'polls:signout' %}">
+                {% csrf_token %}
+                <button type="submit">
+                    Log out
+                </button>
+            </form>
+        </li>
+    {% else %}
+        <li>
+            <a href="{% url "polls:signin" %}">
+                Sign in
+            </a>
+        </li>
+        <li>
+            <a href="{% url "polls:signup" %}">
+                Sign up
+            </a>
+        </li>
+    {% endif %}
+</ul>

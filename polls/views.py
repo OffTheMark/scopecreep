@@ -1,6 +1,7 @@
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.views import generic
@@ -13,8 +14,8 @@ def index(request):
     return render(request, 'polls/index.html', {})
 
 
-class LoginView(generic.FormView):
-    template_name = "polls/login.html"
+class SigninView(generic.FormView):
+    template_name = "polls/signin.html"
     form_class = LoginForm
 
     def form_valid(self, form):
@@ -30,6 +31,11 @@ class LoginView(generic.FormView):
 
     def get_success_url(self):
         return reverse("polls:index")
+
+
+def signout(request):
+    logout(request)
+    return HttpResponseRedirect(reverse("polls:index"))
 
 
 class SignupView(generic.FormView):
