@@ -13,8 +13,8 @@ def index(request):
     return render(request, 'polls/index.html', {})
 
 
-class LoginView(generic.FormView):
-    template_name = "polls/login.html"
+class SigninView(generic.FormView):
+    template_name = "polls/signin.html"
     form_class = LoginForm
 
     def form_valid(self, form):
