@@ -68,3 +68,10 @@ class TopicsView(generic.ListView, LoginRequiredMixin):
 class TopicView(generic.DetailView, LoginRequiredMixin):
     template_name = "polls/topic.html"
     model = Topic
+
+
+def delete_topic(request, topic_id):
+    topic = Topic.objects.get(pk=topic_id)
+    if request.user == topic.submitter:
+        Topic.objects.get(pk=topic_id).delete()
+    return render(request, 'polls/topics.html')

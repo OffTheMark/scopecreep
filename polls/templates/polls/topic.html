@@ -46,6 +46,15 @@
                     {% endfor %}
                 </ul>
             </div>
+
+            {% if user == topic.submitter %}
+                <form action="{% url "polls:topic_delete" topic.id %}">
+                    <button type="submit" class="btn btn-danger">
+                        Delete
+                    </button>
+                </form>
+            {% endif %}
+
         </div>
 
     </div>
