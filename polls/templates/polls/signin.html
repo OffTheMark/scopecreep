@@ -3,21 +3,26 @@
 {% block title %}Login | ScopeCreep{% endblock %}
 
 {% block template_content %}
-    <h1>Sign in</h1>
-    {% if form.non_field_errors %}
-        <ul>
-            {% for error in form.non_field_errors %}
-                <li>
-                    {{ error|escape }}
-                </li>
-            {% endfor %}
-        </ul>
-    {% endif %}
+    <div class="container">
+        <h1 class="mt-3 mb-2">
+            Sign in
+        </h1>
 
-    <form method="post" action="{% url 'polls:signin' %}">
-        {% csrf_token %}
-        {{ form.username }}
-        {{ form.password }}
-        <input type="submit" />
-    </form>
+        {% if form.non_field_errors %}
+            <ul>
+                {% for error in form.non_field_errors %}
+                    <li>
+                        {{ error|escape }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <form method="post" action="{% url 'polls:signin' %}">
+            {% csrf_token %}
+            {{ form.username }}
+            {{ form.password }}
+            <input type="submit" />
+        </form>
+    </div>
 {% endblock %}

@@ -3,15 +3,30 @@
 {% block title %}Topics | ScopeCreep{% endblock %}
 
 {% block template_content %}
-    <h1>Topics</h1>
+    <div class="container">
+        <h1 class="mt-3 mb-2">
+            Topics
+        </h1>
 
-    <ul>
-        {% for topic in topic_list.all %}
-            <li>
-                <a href="{% url "polls:topic" topic.id %}">
-                    {{ topic.name }}
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="{% url "polls:index" %}">
+                    Home
                 </a>
             </li>
-        {% endfor %}
-    </ul>
+            <li class="breadcrumb-item active">
+                Topics
+            </li>
+        </ol>
+
+        <ul>
+            {% for topic in topic_list.all %}
+                <li>
+                    <a href="{% url "polls:topic" topic.id %}">
+                        {{ topic.name }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}
