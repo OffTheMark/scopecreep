@@ -6,14 +6,16 @@ class LoginForm(forms.Form):
     username = forms.CharField(
         widget=forms.TextInput(
             attrs={
-                "placeholder": "Username"
+                "class": "form-control",
+                "placeholder": "Username",
             }
         )
     )
     password = forms.CharField(
         widget=forms.PasswordInput(
             attrs={
-                "placeholder": "Password"
+                "class": "form-control",
+                "placeholder": "Password",
             }
         )
     )
@@ -35,6 +37,7 @@ class SignupForm(forms.Form):
     username = forms.CharField(
         widget=forms.TextInput(
             attrs={
+                "class": "form-control",
                 "placeholder": "Username",
             }
         )
@@ -42,6 +45,7 @@ class SignupForm(forms.Form):
     email = forms.CharField(
         widget=forms.EmailInput(
             attrs={
+                "class": "form-control",
                 "placeholder": "Email address",
             }
         )
@@ -49,6 +53,7 @@ class SignupForm(forms.Form):
     password = forms.CharField(
         widget=forms.PasswordInput(
             attrs={
+                "class": "form-control",
                 "placeholder": "Password",
             }
         )
@@ -56,6 +61,7 @@ class SignupForm(forms.Form):
     confirm_password = forms.CharField(
         widget=forms.PasswordInput(
             attrs={
+                "class": "form-control",
                 "placeholder": "Confirm password",
             }
         )
