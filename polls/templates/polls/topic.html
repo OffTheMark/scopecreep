@@ -24,8 +24,29 @@
             </li>
         </ol>
 
-        <p>
-            {{ topic.description }}
-        </p>
+        <div class="row">
+            <div class="col">
+                <h2>
+                    Description
+                </h2>
+                <p>
+                    {{ topic.description }}
+                </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <h2>
+                    Suggestions
+                </h2>
+                <ul>
+                    {% for suggestion in topic.suggestion_set.all %}
+                        {% include "polls/topic/suggestion_item.html" %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
     </div>
 {% endblock %}

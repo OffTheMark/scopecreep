@@ -1,5 +1,6 @@
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
@@ -10,7 +11,6 @@ from .forms import LoginForm, SignupForm
 from .models import Topic
 
 
-@login_required
 def index(request):
     return render(request, 'polls/index.html', {})
 
@@ -57,7 +57,7 @@ class SignupView(generic.FormView):
         return reverse("polls:index")
 
 
-class TopicsView(generic.ListView):
+class TopicsView(generic.ListView, LoginRequiredMixin):
     template_name = "polls/topics.html"
     context_object_name = 'topic_list'
 
@@ -65,7 +65,6 @@ class TopicsView(generic.ListView):
         return Topic.objects.all()
 
 
-class TopicView(generic.DetailView):
+class TopicView(generic.DetailView, LoginRequiredMixin):
     template_name = "polls/topic.html"
     model = Topic
-

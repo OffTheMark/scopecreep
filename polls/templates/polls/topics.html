@@ -19,14 +19,14 @@
             </li>
         </ol>
 
-        <ul>
-            {% for topic in topic_list.all %}
-                <li>
-                    <a href="{% url "polls:topic" topic.id %}">
-                        {{ topic.name }}
-                    </a>
-                </li>
-            {% endfor %}
-        </ul>
+        <div class="row">
+            <div class="col">
+                <ul>
+                    {% for topic in topic_list.all %}
+                        {% include "polls/topics/topic_item.html" %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
     </div>
 {% endblock %}
