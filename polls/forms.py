@@ -80,3 +80,24 @@ class SignupForm(forms.Form):
             raise forms.ValidationError("A user with this email already exists.")
         if password != confirm_password:
             raise forms.ValidationError("Passwords don't match.")
+
+
+class TopicForm(forms.Form):
+    name = forms.CharField(
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-control",
+                "placeholder": "Name",
+            }
+        )
+    )
+    description = forms.CharField(
+        required=False,
+        widget=forms.Textarea(
+            attrs={
+                "class": "form-control",
+                "placeholder": "Description",
+                "rows": "3",
+            }
+        )
+    )

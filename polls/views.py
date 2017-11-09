@@ -1,5 +1,4 @@
 from django.contrib.auth import login, logout
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
@@ -7,7 +6,7 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.views import generic
 
-from .forms import LoginForm, SignupForm
+from .forms import LoginForm, SignupForm, TopicForm
 from .models import Topic
 
 
@@ -57,14 +56,32 @@ class SignupView(generic.FormView):
         return reverse("polls:index")
 
 
-class TopicsView(generic.ListView, LoginRequiredMixin):
+class TopicsView(LoginRequiredMixin, generic.FormView):
     template_name = "polls/topics.html"
-    context_object_name = 'topic_list'
+    form_class = TopicForm
 
-    def get_queryset(self):
-        return Topic.objects.all()
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        data["topics"] = Topic.objects.all()
+        return data
+
+    def form_valid(self, form):
+        name = form.cleaned_data.get("name")
+        description = form.cleaned_data.get("description")
+
+        topic = Topic(
+            name=name,
+            description=description,
+            submitter=self.request.user
+        )
+        topic.save()
+
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse("polls:topics")
 
 
-class TopicView(generic.DetailView, LoginRequiredMixin):
+class TopicView(LoginRequiredMixin, generic.DetailView):
     template_name = "polls/topic.html"
     model = Topic

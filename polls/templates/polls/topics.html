@@ -19,13 +19,33 @@
             </li>
         </ol>
 
+        <div class="row mb-4">
+            <div class="col">
+                <div id="createAccordion" role="tablist">
+                    <div class="card">
+                        <div class="card-header" id="headingCreate" role="tab">
+                            <a data-toggle="collapse" href="#collapseCreate" aria-expanded="true" aria-controls="collapseCreate">
+                                Create a topic
+                            </a>
+                        </div>
+                        <div id="collapseCreate" class="collapse show" role="tabpanel" aria-labelledby="headingCreate">
+                            <div class="card-body">
+                                {% include "polls/topics/create.html" with form=form %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
         <div class="row">
             <div class="col">
-                <ul>
-                    {% for topic in topic_list.all %}
+                <div class="card-deck">
+                    {% for topic in topics.all %}
                         {% include "polls/topics/topic_item.html" %}
                     {% endfor %}
-                </ul>
+                </div>
             </div>
         </div>
     </div>
