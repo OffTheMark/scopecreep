@@ -1,30 +1,65 @@
 {% extends "polls/base.html" %}
 
+{% load static %}
+
 {% block title %}Login | ScopeCreep{% endblock %}
+
+{% block template_css %}
+    <link rel="stylesheet" type="text/css" href="{% static "polls/css/credentials-form.css" %}" />
+{% endblock %}
 
 {% block template_content %}
     <div class="container">
-        <h1 class="mt-3 mb-2">
-            Sign up
-        </h1>
+        <div class="row justify-content-center">
+            <div class="col-xs-10 col-sm-8 col-md-6">
+                <div class="card credentials">
+                    <div class="card-header">
+                        <div class="nav nav-tabs card-header-tabs nav-fill">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url "polls:signin" %}">
+                                    Sign in
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" href="{% url "polls:signup" %}">
+                                    Sign up
+                                </a>
+                            </li>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        {% if form.non_field_errors %}
+                            <div class="alert alert-danger alert-dismissible fade show">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <ul>
+                                    {% for error in form.non_field_errors %}
+                                        {% if forloop.counter > 1 %}
+                                            <hr>
+                                        {% endif %}
+                                        {{ error|escape }}
+                                    {% endfor %}
+                                </ul>
+                        {% endif %}
 
-        {% if form.non_field_errors %}
-            <ul>
-                {% for error in form.non_field_errors %}
-                    <li>
-                        {{ error|escape }}
-                    </li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-
-        <form method="post" action="{% url 'polls:signup' %}">
-            {% csrf_token %}
-            {{ form.username }}
-            {{ form.email }}
-            {{ form.password }}
-            {{ form.confirm_password }}
-            <input type="submit" />
-        </form>
+                        <form method="post" action="{% url 'polls:signup' %}" class="credentials-form">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                {{ form.username }}
+                                {{ form.email }}
+                            </div>
+                            <div class="form-group">
+                                {{ form.password }}
+                                {{ form.confirm_password }}
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">
+                                Submit
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}
