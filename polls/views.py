@@ -17,6 +17,7 @@ def index(request):
 class SigninView(generic.FormView):
     template_name = "polls/signin.html"
     form_class = LoginForm
+    redirect_field_name = "next"
 
     def form_valid(self, form):
         username = form.cleaned_data.get("username")
@@ -30,7 +31,10 @@ class SigninView(generic.FormView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse("polls:index")
+        url = self.request.POST.get(self.redirect_field_name)
+        if url is None:
+            url = reverse("polls:index")
+        return url
 
 
 def signout(request):
