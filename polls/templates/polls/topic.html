@@ -4,9 +4,14 @@
 
 {% block template_content %}
     <div class="container">
-        <h1 class="mt-3 mb-2">
-            {{ topic.name }}
-        </h1>
+        <div class="row mb-2">
+            <div class="col">
+                <h1>
+                    {{ topic.name }}
+                </h1>
+                By {{ topic.submitter }}
+            </div>
+        </div>
 
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
@@ -24,11 +29,28 @@
             </li>
         </ol>
 
+        {% if user == topic.submitter %}
+            <div class="row">
+                <div class="col">
+                    <h3>
+                        Manage
+                    </h3>
+                </div>
+                <div class="col">
+                    <form action="{% url "polls:topic_delete" topic.id %}">
+                        <button type="submit" class="btn btn-danger float-right">
+                            Delete
+                        </button>
+                    </form>
+                </div>
+            </div>
+        {% endif %}
+
         <div class="row">
             <div class="col">
-                <h2>
+                <h3>
                     Description
-                </h2>
+                </h3>
                 <p>
                     {{ topic.description }}
                 </p>
@@ -37,24 +59,13 @@
 
         <div class="row">
             <div class="col">
-                <h2>
+                <h3>
                     Suggestions
-                </h2>
-                <ul>
-                    {% for suggestion in topic.suggestion_set.all %}
-                        {% include "polls/topic/suggestion_item.html" %}
-                    {% endfor %}
-                </ul>
+                </h3>
+                {% for suggestion in suggestions.all %}
+                    {% include "polls/topic/suggestion_item.html" %}
+                {% endfor %}
             </div>
-
-            {% if user == topic.submitter %}
-                <form action="{% url "polls:topic_delete" topic.id %}">
-                    <button type="submit" class="btn btn-danger">
-                        Delete
-                    </button>
-                </form>
-            {% endif %}
-
         </div>
 
     </div>

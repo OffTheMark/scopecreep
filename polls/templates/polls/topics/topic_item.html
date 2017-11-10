@@ -1,17 +1,22 @@
 <div class="card">
     <div class="card-body">
         <div class="card-title">
-            <h3>
+            <h4>
                 {{ topic.name }}
-            </h3>
+            </h4>
+            <p>
+                By {{ topic.submitter }}
+            </p>
         </div>
         <div class="card-text">
             <p>
                 {{ topic.description }}
             </p>
-            <a class="btn btn-primary" href="{% url "polls:topic" topic.id %}">
-                View topic
-            </a>
         </div>
+    </div>
+    <div class="card-footer">
+        <a class="btn btn-primary" href="{% url "polls:topic" topic.id %}">
+            View topic
+        </a>
     </div>
 </div>

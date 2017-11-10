@@ -1,3 +1,21 @@
-<li>
-    {{ suggestion.name }}
-</li>
+<div class="row mb-2">
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-title">
+                    <h4>
+                        {{ suggestion.name }}
+                    </h4>
+                    <p>
+                        By {{ suggestion.submitter }}
+                    </p>
+                </div>
+                <div class="card-text">
+                    <p>
+                        {{ suggestion.description }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
