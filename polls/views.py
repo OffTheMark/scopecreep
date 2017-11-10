@@ -1,13 +1,15 @@
 from django.contrib.auth import login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
+from django.db.models import Sum
+from django.db.models.functions import Coalesce
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.views import generic
 
 from .forms import LoginForm, SignupForm, TopicForm
-from .models import Topic
+from .models import Topic, Suggestion
 
 
 def index(request):
@@ -89,6 +91,14 @@ class TopicsView(LoginRequiredMixin, generic.FormView):
 class TopicView(LoginRequiredMixin, generic.DetailView):
     template_name = "polls/topic.html"
     model = Topic
+
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        data["suggestions"] = Suggestion.objects\
+            .filter(topic=self.object)\
+            .annotate(score=Coalesce(Sum("vote__opinion"), 0))\
+            .order_by("-score")
+        return data
 
 
 def delete_topic(request, topic_id):
