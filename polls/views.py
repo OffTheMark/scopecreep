@@ -62,9 +62,10 @@ class SignupView(generic.FormView):
         return reverse("polls:index")
 
 
-class TopicsView(LoginRequiredMixin, generic.FormView):
+class TopicsView(LoginRequiredMixin, generic.CreateView):
     template_name = "polls/topics.html"
     form_class = TopicForm
+    model = Topic
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
@@ -72,16 +73,7 @@ class TopicsView(LoginRequiredMixin, generic.FormView):
         return data
 
     def form_valid(self, form):
-        name = form.cleaned_data.get("name")
-        description = form.cleaned_data.get("description")
-
-        topic = Topic(
-            name=name,
-            description=description,
-            submitter=self.request.user
-        )
-        topic.save()
-
+        form.instance.submitter = self.request.user
         return super().form_valid(form)
 
     def get_success_url(self):

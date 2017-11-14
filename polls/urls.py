@@ -9,6 +9,6 @@ urlpatterns = [
     url(r'^logout/$', views.signout, name='signout'),
     url(r'^signup/$', views.SignupView.as_view(), name='signup'),
     url(r'^topics/$', views.TopicsView.as_view(), name='topics'),
+    url(r'^topic/(?P<pk>[0-9]+)/$', views.TopicView.as_view(), name='topic'),
     url(r'^topic/(?P<topic_id>[0-9]+)/delete/$', views.delete_topic, name='topic_delete'),
-    url(r'^topic/(?P<pk>[0-9]+)/$', views.TopicView.as_view(), name="topic"),
 ]

@@ -46,16 +46,18 @@
             </div>
         {% endif %}
 
-        <div class="row">
-            <div class="col">
-                <h3>
-                    Description
-                </h3>
-                <p>
-                    {{ topic.description }}
-                </p>
+        {% if topic.description %}
+            <div class="row">
+                <div class="col">
+                    <h3>
+                        Description
+                    </h3>
+                    <p>
+                        {{ topic.description }}
+                    </p>
+                </div>
             </div>
-        </div>
+        {% endif %}
 
         <div class="row">
             <div class="col">
@@ -67,6 +69,5 @@
                 {% endfor %}
             </div>
         </div>
-
     </div>
 {% endblock %}

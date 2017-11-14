@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 
+from .models import Topic
 
 class LoginForm(forms.Form):
     username = forms.CharField(
@@ -82,22 +83,22 @@ class SignupForm(forms.Form):
             raise forms.ValidationError("Passwords don't match.")
 
 
-class TopicForm(forms.Form):
-    name = forms.CharField(
-        widget=forms.TextInput(
-            attrs={
-                "class": "form-control",
-                "placeholder": "Name",
-            }
-        )
-    )
-    description = forms.CharField(
-        required=False,
-        widget=forms.Textarea(
-            attrs={
-                "class": "form-control",
-                "placeholder": "Description",
-                "rows": "3",
-            }
-        )
-    )
+class TopicForm(forms.ModelForm):
+    class Meta:
+        model = Topic
+        fields = ["name", "description"]
+        widgets = {
+            "name": forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                    "placeholder": "Name",
+                }
+            ),
+            "description": forms.Textarea(
+                attrs={
+                    "class": "form-control",
+                    "placeholder": "Description",
+                    "rows": "3",
+                }
+            )
+        }
