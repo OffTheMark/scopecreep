@@ -1,0 +1,43 @@
+{% extends "polls/base.html" %}
+
+{% block title %}Edit {{ topic.name }} | ScopeCreep{% endblock %}
+
+{% block template_content %}
+    <div class="container">
+        <div class="row mb-2">
+            <div class="col">
+                <h1>
+                    {{ topic.name }}
+                </h1>
+                By {{ topic.submitter }}
+            </div>
+        </div>
+
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="{% url "polls:index" %}">
+                    Home
+                </a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="{% url "polls:topics" %}">
+                    Topics
+                </a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="{% url "polls:topic" topic.id %}">
+                    {{ topic.name }}
+                </a>
+            </li>
+            <li class="breadcrumb-item active">
+                Edit
+            </li>
+        </ol>
+
+        <div class="row">
+            <div class="col">
+                {% include "polls/topic/edit_form.html" %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

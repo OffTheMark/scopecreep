@@ -42,6 +42,9 @@
                             Delete
                         </button>
                     </form>
+                    <a class="btn btn-primary float-right mr-2" href="{% url "polls:topic_edit" topic.id %}">
+                        Edit
+                    </a>
                 </div>
             </div>
         {% endif %}

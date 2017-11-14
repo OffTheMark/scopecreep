@@ -93,8 +93,17 @@ class TopicView(LoginRequiredMixin, generic.DetailView):
         return data
 
 
+class EditTopicView(LoginRequiredMixin, generic.UpdateView):
+    template_name = "polls/topic/edit.html"
+    form_class = TopicForm
+    model = Topic
+
+    def get_success_url(self):
+        return reverse("polls:topic", kwargs={"pk": self.object.id})
+
+
 def delete_topic(request, topic_id):
     topic = Topic.objects.get(pk=topic_id)
     if request.user == topic.submitter:
-        Topic.objects.get(pk=topic_id).delete()
-    return render(request, 'polls/topics.html')
+        topic.delete()
+    return HttpResponseRedirect(reverse("polls:topics"))
