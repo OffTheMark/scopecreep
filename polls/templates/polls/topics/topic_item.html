@@ -12,7 +12,7 @@
         </div>
         {% if topic.description %}
             <p class="card-text">
-                {{ topic.description }}
+                {{ topic.description|truncatewords:50 }}
             </p>
         {% endif %}
     </div>

@@ -56,7 +56,7 @@
                         Description
                     </h3>
                     <p>
-                        {{ topic.description }}
+                        {{ topic.description|linebreaks }}
                     </p>
                 </div>
             </div>
@@ -72,6 +72,10 @@
                         <div class="col">
                             {% include "polls/topic/suggestion_item.html" %}
                         </div>
+                    </div>
+                {% empty %}
+                    <div class="alert alert-secondary text-center" role="alert">
+                        No suggestions to display.
                     </div>
                 {% endfor %}
             </div>

@@ -30,7 +30,7 @@
                         </div>
                         <div id="collapseCreate" class="collapse show" role="tabpanel" aria-labelledby="headingCreate">
                             <div class="card-body">
-                                {% include "polls/topics/create_form.html" %}
+                                {% include "polls/topics/create_topic_form.html" %}
                             </div>
                         </div>
                     </div>
@@ -46,6 +46,10 @@
                         <div class="col">
                             {% include "polls/topics/topic_item.html" %}
                         </div>
+                    </div>
+                {% empty %}
+                    <div class="alert alert-secondary text-center" role="alert">
+                        No topics to display.
                     </div>
                 {% endfor %}
                 </div>

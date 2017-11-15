@@ -12,7 +12,7 @@
         </div>
         {% if suggestion.description %}
             <p class="card-text">
-                {{ suggestion.description }}
+                {{ suggestion.description|truncatewords:50 }}
             </p>
         {% endif %}
     </div>
