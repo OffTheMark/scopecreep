@@ -1,21 +1,28 @@
+{% load humanize %}
+
 <div class="card">
     <div class="card-body">
         <div class="card-title">
             <h4>
                 {{ topic.name }}
             </h4>
-            <p>
-                By {{ topic.submitter }}
-            </p>
         </div>
-        <div class="card-text">
-            <p>
+        <div class="card-subtitle text-muted mb-2">
+            Created by {{ topic.submitter }}
+        </div>
+        {% if topic.description %}
+            <p class="card-text">
                 {{ topic.description }}
             </p>
-        </div>
+        {% endif %}
     </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+            Created {{ topic.date_created|naturaltime }}
+        </li>
+    </ul>
     <div class="card-footer">
-        <a class="btn btn-primary" href="{% url "polls:topic" topic.id %}">
+        <a class="card-link" href="{% url "polls:topic" topic.id %}">
             View topic
         </a>
     </div>

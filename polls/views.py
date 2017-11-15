@@ -69,7 +69,7 @@ class TopicsView(LoginRequiredMixin, generic.CreateView):
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
-        data["topics"] = Topic.objects.all()
+        data["topics"] = Topic.objects.all().order_by("date_created")
         return data
 
     def form_valid(self, form):

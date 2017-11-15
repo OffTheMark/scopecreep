@@ -41,10 +41,13 @@
 
         <div class="row">
             <div class="col">
-                <div class="card-deck">
-                    {% for topic in topics.all %}
-                        {% include "polls/topics/topic_item.html" %}
-                    {% endfor %}
+                {% for topic in topics.all %}
+                    <div class="row mb-2">
+                        <div class="col">
+                            {% include "polls/topics/topic_item.html" %}
+                        </div>
+                    </div>
+                {% endfor %}
                 </div>
             </div>
         </div>
