@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 
-from .models import Topic
+from .models import Topic, Suggestion
 
 class LoginForm(forms.Form):
     username = forms.CharField(
@@ -86,6 +86,27 @@ class SignupForm(forms.Form):
 class TopicForm(forms.ModelForm):
     class Meta:
         model = Topic
+        fields = ["name", "description"]
+        widgets = {
+            "name": forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                    "placeholder": "Name",
+                }
+            ),
+            "description": forms.Textarea(
+                attrs={
+                    "class": "form-control",
+                    "placeholder": "Description",
+                    "rows": "3",
+                }
+            )
+        }
+
+
+class SuggestionForm(forms.ModelForm):
+    class Meta:
+        model = Suggestion
         fields = ["name", "description"]
         widgets = {
             "name": forms.TextInput(

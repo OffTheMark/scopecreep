@@ -8,7 +8,7 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.views import generic
 
-from .forms import LoginForm, SignupForm, TopicForm
+from .forms import LoginForm, SignupForm, TopicForm, SuggestionForm
 from .models import Topic, Suggestion, Comment
 
 
@@ -80,26 +80,37 @@ class TopicsView(LoginRequiredMixin, generic.CreateView):
         return reverse("polls:topics")
 
 
-class TopicView(LoginRequiredMixin, generic.DetailView):
+class TopicView(LoginRequiredMixin, generic.CreateView):
     template_name = "polls/topic.html"
-    model = Topic
+    model = Suggestion
+    form_class = SuggestionForm
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
+        data["topic"] = Topic.objects.get(pk=self.kwargs.get("topic_id"))
         data["suggestions"] = Suggestion.objects\
-            .filter(topic=self.object)\
+            .filter(topic_id=self.kwargs.get("topic_id"))\
             .annotate(score=Coalesce(Sum("vote__opinion"), 0))\
             .order_by("-score")
         return data
+
+    def form_valid(self, form):
+        form.instance.submitter = self.request.user
+        form.instance.topic_id = self.kwargs.get("topic_id")
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse("polls:topic", kwargs={"topic_id": self.kwargs.get("topic_id")})
 
 
 class EditTopicView(LoginRequiredMixin, generic.UpdateView):
     template_name = "polls/topic/edit.html"
     form_class = TopicForm
     model = Topic
+    pk_url_kwarg = "topic_id"
 
     def get_success_url(self):
-        return reverse("polls:topic", kwargs={"pk": self.object.id})
+        return reverse("polls:topic", kwargs={"topic_id": self.object.id})
 
 
 def delete_topic(request, topic_id):
@@ -112,6 +123,7 @@ def delete_topic(request, topic_id):
 class SuggestionView(LoginRequiredMixin, generic.DetailView):
     template_name = "polls/suggestion.html"
     model = Suggestion
+    pk_url_kwarg = "suggestion_id"
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
