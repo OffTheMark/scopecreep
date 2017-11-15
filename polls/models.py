@@ -47,6 +47,9 @@ class Suggestion(models.Model):
         default=datetime.now
     )
 
+    def score(self):
+        return [sum(vote.opinion) for vote in self.vote_set.all()]
+
     def __str__(self):
         return self.name
 

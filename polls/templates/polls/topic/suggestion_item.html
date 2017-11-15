@@ -1,24 +1,32 @@
-<div class="row mb-2">
-    <div class="col">
-        <div class="card">
-            <div class="card-body">
-                <div class="card-title">
-                    <h4>
-                        {{ suggestion.name }}
-                    </h4>
-                    <p>
-                        By {{ suggestion.submitter }}
-                    </p>
-                </div>
-                <div class="card-text">
-                    <p>
-                        {{ suggestion.description }}
-                    </p>
-                    <p>
-                        Score: {{ suggestion.score }}
-                    </p>
-                </div>
-            </div>
+{% load humanize %}
+
+<div class="card">
+    <div class="card-body">
+        <div class="card-title">
+            <h4>
+                {{ suggestion.name }}
+            </h4>
         </div>
+        <div class="card-subtitle text-muted mb-2">
+            Created by {{ suggestion.submitter }}
+        </div>
+        {% if suggestion.description %}
+            <p class="card-text">
+                {{ suggestion.description }}
+            </p>
+        {% endif %}
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+            Score : {{ suggestion.score }}
+        </li>
+        <li class="list-group-item">
+            Created {{ suggestion.date_created|naturaltime }}
+        </li>
+    </ul>
+    <div class="card-footer">
+        <a class="card-link" href="{% url "polls:suggestion" suggestion.id %}">
+            View suggestion
+        </a>
     </div>
 </div>

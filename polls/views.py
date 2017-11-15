@@ -9,7 +9,7 @@ from django.urls import reverse
 from django.views import generic
 
 from .forms import LoginForm, SignupForm, TopicForm
-from .models import Topic, Suggestion
+from .models import Topic, Suggestion, Comment
 
 
 def index(request):
@@ -107,3 +107,15 @@ def delete_topic(request, topic_id):
     if request.user == topic.submitter:
         topic.delete()
     return HttpResponseRedirect(reverse("polls:topics"))
+
+
+class SuggestionView(LoginRequiredMixin, generic.DetailView):
+    template_name = "polls/suggestion.html"
+    model = Suggestion
+
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        data["comments"] = Comment.objects\
+            .filter(suggestion=self.object)\
+            .order_by("-date_created")
+        return data

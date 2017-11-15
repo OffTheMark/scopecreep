@@ -68,7 +68,11 @@
                     Suggestions
                 </h3>
                 {% for suggestion in suggestions.all %}
-                    {% include "polls/topic/suggestion_item.html" %}
+                    <div class="row mb-2">
+                        <div class="col">
+                            {% include "polls/topic/suggestion_item.html" %}
+                        </div>
+                    </div>
                 {% endfor %}
             </div>
         </div>

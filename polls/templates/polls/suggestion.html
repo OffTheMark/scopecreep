@@ -1,0 +1,50 @@
+{% extends "polls/base.html" %}
+
+{% block title %}{{ suggestion.name }} | ScopeCreep{% endblock %}
+
+{% block template_content %}
+    <div class="container">
+        <div class="row mb-2">
+            <div class="col">
+                <h1>
+                    {{ suggestion.name }}
+                </h1>
+                By {{ suggestion.submitter }}
+            </div>
+        </div>
+
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="{% url "polls:index" %}">
+                    Home
+                </a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="{% url "polls:topics" %}">
+                    Topics
+                </a>
+            </li>
+            <li class="breadcrumb-item active">
+                <a href="{% url "polls:topic" suggestion.topic_id %}">
+                    {{ suggestion.topic.name }}
+                </a>
+            </li>
+            <li class="breadcrumb-item active">
+                {{ suggestion.name }}
+            </li>
+        </ol>
+
+        {% if suggestion.description %}
+            <div class="row">
+                <div class="col">
+                    <h3>
+                        Description
+                    </h3>
+                    <p>
+                        {{ suggestion.description }}
+                    </p>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
