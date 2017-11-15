@@ -1,0 +1,12 @@
+{% if user.is_authenticated %}
+    <a class="btn btn-primary" href="{% url "polls:topics" %}">
+        View topics
+    </a>
+{% else %}
+    <a class="btn btn-primary" href="{% url "polls:signin" %}">
+        Sign in
+    </a>
+    <a class="btn btn-secondary" href="{% url "polls:signup" %}">
+        Sign up
+    </a>
+{% endif %}

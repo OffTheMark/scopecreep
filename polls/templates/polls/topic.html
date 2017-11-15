@@ -1,18 +1,23 @@
 {% extends "polls/base.html" %}
 
-{% block title %}{{ topic.name }} | ScopeCreep{% endblock %}
+{% block title %}{{ topic.name }} | Topic | ScopeCreep{% endblock %}
 
 {% block template_content %}
-    <div class="container">
-        <div class="row mb-2">
-            <div class="col">
-                <h1>
-                    {{ topic.name }}
-                </h1>
+    <div class="jumbotron p-4 mb-4">
+        <div class="container">
+            <h2 class="text-muted">
+                Topic
+            </h2>
+            <h1>
+                {{ topic.name }}
+            </h1>
+            <p class="lead text-muted mb-0">
                 By {{ topic.submitter }}
-            </div>
+            </p>
         </div>
+    </div>
 
+    <div class="container">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
                 <a href="{% url "polls:index" %}">
