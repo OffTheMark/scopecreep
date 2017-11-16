@@ -42,7 +42,7 @@
                     </h3>
                 </div>
                 <div class="col">
-                    <form action="{% url "polls:topic_delete" topic.id %}">
+                    <form id="deleteTopicForm" action="{% url "polls:topic_delete" topic.id %}">
                         <button type="submit" class="btn btn-danger float-right">
                             Delete
                         </button>
@@ -89,7 +89,6 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
 
@@ -107,4 +106,12 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block template_js %}
+    <script type="text/javascript">
+        $('#deleteTopicForm').submit(function() {
+            return confirm("Do you really want to delete this topic?");
+        });
+    </script>
 {% endblock %}
