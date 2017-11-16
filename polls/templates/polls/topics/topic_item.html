@@ -8,7 +8,7 @@
             </h4>
         </div>
         <div class="card-subtitle text-muted mb-2">
-            Created by {{ topic.submitter }}
+            Created by {{ topic.submitter }} ({{ topic.date_created|naturaltime }})
         </div>
         {% if topic.description %}
             <p class="card-text">
@@ -16,11 +16,6 @@
             </p>
         {% endif %}
     </div>
-    <ul class="list-group list-group-flush">
-        <li class="list-group-item">
-            Created {{ topic.date_created|naturaltime }}
-        </li>
-    </ul>
     <div class="card-footer">
         <a class="card-link" href="{% url "polls:topic" topic.id %}">
             View topic

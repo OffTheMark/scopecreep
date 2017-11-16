@@ -8,7 +8,7 @@
             </h4>
         </div>
         <div class="card-subtitle text-muted mb-2">
-            Created by {{ suggestion.submitter }}
+            Created by {{ suggestion.submitter }} ({{ suggestion.date_created|naturaltime }})
         </div>
         {% if suggestion.description %}
             <p class="card-text">
@@ -19,9 +19,6 @@
     <ul class="list-group list-group-flush">
         <li class="list-group-item">
             Score : {{ suggestion.score }}
-        </li>
-        <li class="list-group-item">
-            Created {{ suggestion.date_created|naturaltime }}
         </li>
     </ul>
     <div class="card-footer">
