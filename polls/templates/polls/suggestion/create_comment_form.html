@@ -1,0 +1,9 @@
+<form method="post" action="{% url "polls:suggestion" suggestion.id %}">
+    {% csrf_token %}
+    <div class="form-group">
+        {{ form.text }}
+    </div>
+    <button type="submit" class="btn btn-primary">
+        Submit
+    </button>
+</form>

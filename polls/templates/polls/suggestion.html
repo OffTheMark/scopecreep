@@ -51,5 +51,44 @@
                 </div>
             </div>
         {% endif %}
+
+        <div class="row">
+            <div class="col">
+                <h3>
+                    Comments
+                </h3>
+
+                <div class="row mb-4">
+                    <div class="col">
+                        <div id="createAccordion" role="tablist">
+                            <div class="card">
+                                <div class="card-header" id="headingCreate" role="tab">
+                                    <a data-toggle="collapse" href="#collapseCreate" aria-expanded="false" aria-controls="collapseCreate">
+                                        Create a comment
+                                    </a>
+                                </div>
+                                <div id="collapseCreate" class="collapse" role="tabpanel" aria-labelledby="headingCreate">
+                                    <div class="card-body">
+                                        {% include "polls/suggestion/create_comment_form.html" %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {% for comment in comments.all %}
+                    <div class="row mb-2">
+                        <div class="col">
+                            {% include "polls/suggestion/comment_item.html" %}
+                        </div>
+                    </div>
+                {% empty %}
+                    <div class="alert alert-secondary text-center" role="alert">
+                        No comments to display.
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
     </div>
 {% endblock %}

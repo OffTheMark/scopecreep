@@ -1,7 +1,8 @@
 from django import forms
 from django.contrib.auth.models import User
 
-from .models import Topic, Suggestion
+from .models import Topic, Suggestion, Comment
+
 
 class LoginForm(forms.Form):
     username = forms.CharField(
@@ -119,6 +120,21 @@ class SuggestionForm(forms.ModelForm):
                 attrs={
                     "class": "form-control",
                     "placeholder": "Description",
+                    "rows": "3",
+                }
+            )
+        }
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ["text"]
+        widgets = {
+            "text": forms.Textarea(
+                attrs={
+                    "class": "form-control",
+                    "placeholder": "Contribute to the conversation.",
                     "rows": "3",
                 }
             )

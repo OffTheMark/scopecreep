@@ -8,7 +8,7 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.views import generic
 
-from .forms import LoginForm, SignupForm, TopicForm, SuggestionForm
+from .forms import LoginForm, SignupForm, TopicForm, SuggestionForm, CommentForm
 from .models import Topic, Suggestion, Comment
 
 
@@ -120,14 +120,23 @@ def delete_topic(request, topic_id):
     return HttpResponseRedirect(reverse("polls:topics"))
 
 
-class SuggestionView(LoginRequiredMixin, generic.DetailView):
+class SuggestionView(LoginRequiredMixin, generic.CreateView):
     template_name = "polls/suggestion.html"
-    model = Suggestion
-    pk_url_kwarg = "suggestion_id"
+    model = Comment
+    form_class = CommentForm
+
+    def form_valid(self, form):
+        form.instance.submitter = self.request.user
+        form.instance.suggestion_id = self.kwargs.get("suggestion_id")
+        return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
+        data["suggestion"] = Suggestion.objects.get(pk=self.kwargs.get("suggestion_id"))
         data["comments"] = Comment.objects\
-            .filter(suggestion=self.object)\
-            .order_by("-date_created")
+            .filter(suggestion_id=self.kwargs.get("suggestion_id"))\
+            .order_by("date_created")
         return data
+
+    def get_success_url(self):
+        return reverse("polls:suggestion", kwargs={"suggestion_id": self.kwargs.get("suggestion_id")})
