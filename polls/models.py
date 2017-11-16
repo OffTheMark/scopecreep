@@ -73,7 +73,7 @@ class Comment(models.Model):
     )
 
     def __str__(self):
-        return self.suggestion
+        return self.text
 
 
 class Vote(models.Model):
