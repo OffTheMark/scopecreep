@@ -48,7 +48,7 @@ class Suggestion(models.Model):
     )
 
     def score(self):
-        return [sum(vote.opinion) for vote in self.vote_set.all()]
+        return sum([vote.opinion for vote in self.vote_set.all()])
 
     def __str__(self):
         return self.name

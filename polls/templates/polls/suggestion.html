@@ -5,15 +5,29 @@
 {% block template_content %}
     <div class="jumbotron p-4 mb-4">
         <div class="container">
-            <h2 class="text-muted">
-                Suggestion
-            </h2>
-            <h1>
-                {{ suggestion.name }}
-            </h1>
-            <p class="lead text-muted mb-0">
-                Created by {{ suggestion.submitter }}
-            </p>
+            <div class="row">
+                <div class="col">
+                    <h2 class="text-muted">
+                        Suggestion
+                    </h2>
+                    <h1>
+                        {{ suggestion.name }}
+                    </h1>
+                    <p class="lead text-muted mb-0">
+                        Created by {{ suggestion.submitter }}
+                    </p>
+                </div>
+                <div class="col-md-2 text-center">
+                    <h2>
+                        Score
+                    </h2>
+                    {% with score=suggestion.score %}
+                    <h1 class="{% if score < 0 %}text-danger{% elif score == 0 %}text-warning{% elif score > 0 %}text-success{% endif %}">
+                        {{ score }}
+                    </h1>
+                    {% endwith %}
+                </div>
+            </div>
         </div>
     </div>
 
