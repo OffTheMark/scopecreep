@@ -12,6 +12,7 @@ topic_patterns = [
 
 suggestion_patterns = [
     url(r'^$', views.SuggestionView.as_view(), name='suggestion'),
+    url(r'^vote/$', views.vote_suggestion, name='vote'),
 ]
 
 urlpatterns = [
@@ -22,5 +23,4 @@ urlpatterns = [
     url(r'^topics/$', views.TopicsView.as_view(), name='topics'),
     url(r'^topic/(?P<topic_id>[0-9]+)/', include(topic_patterns)),
     url(r'^suggestion/(?P<suggestion_id>[0-9]+)/', include(suggestion_patterns)),
-
 ]

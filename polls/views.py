@@ -9,7 +9,7 @@ from django.urls import reverse
 from django.views import generic
 
 from .forms import LoginForm, SignupForm, TopicForm, SuggestionForm, CommentForm
-from .models import Topic, Suggestion, Comment
+from .models import Topic, Suggestion, Comment, Vote
 
 
 def index(request):
@@ -140,3 +140,26 @@ class SuggestionView(LoginRequiredMixin, generic.CreateView):
 
     def get_success_url(self):
         return reverse("polls:suggestion", kwargs={"suggestion_id": self.kwargs.get("suggestion_id")})
+
+
+def vote_suggestion(request, suggestion_id):
+    if request.method == "POST":
+        opinion = int(request.POST.get("opinion"))
+        suggestion = Suggestion.objects.get(pk=suggestion_id)
+
+        votes = Vote.objects.filter(suggestion_id=suggestion_id, submitter=request.user)
+        vote = None
+        if votes.exists():
+            vote = votes[0]
+            if vote.opinion == opinion:
+                vote.opinion = 0
+            else:
+                vote.opinion = opinion
+        else:
+            vote = Vote(
+                suggestion_id=suggestion_id,
+                submitter=request.user,
+                opinion=opinion
+            )
+        vote.save()
+    return HttpResponseRedirect(reverse("polls:suggestion", kwargs={"suggestion_id": suggestion_id}))
