@@ -22,8 +22,17 @@
         </li>
     </ul>
     <div class="card-footer">
-        <a class="card-link" href="{% url "polls:suggestion" suggestion.id %}">
-            View suggestion
-        </a>
+        <form method="post" action="{% url "polls:vote" suggestion.id %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-success" name="opinion" value="1">
+                Like
+            </button>
+            <button type="submit" class="btn btn-danger" name="opinion" value="-1">
+                Dislike
+            </button>
+            <a class="btn btn-link" href="{% url "polls:suggestion" suggestion.id %}">
+                View suggestion
+            </a>
+        </form>
     </div>
 </div>

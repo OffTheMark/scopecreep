@@ -53,6 +53,25 @@
             </li>
         </ol>
 
+        <div class="row">
+            <div class="col">
+                <h3>
+                    Vote
+                </h3>
+            </div>
+            <div class="col">
+                <form method="post" action="{% url "polls:vote" suggestion.id %}" class="float-right">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-success" name="opinion" value="1">
+                        Like
+                    </button>
+                    <button type="submit" class="btn btn-danger" name="opinion" value="-1">
+                        Dislike
+                    </button>
+                </form>
+            </div>
+        </div>
+
         {% if suggestion.description %}
             <div class="row">
                 <div class="col">
