@@ -38,6 +38,12 @@ class CommentAdmin(admin.ModelAdmin):
     search_fields = ["text"]
 
 
+class VoteAdmin(admin.ModelAdmin):
+    list_display = ["suggestion", "submitter", "opinion", "date_created"]
+    list_filter = ["date_created"]
+
+
 admin.site.register(Topic, TopicAdmin)
 admin.site.register(Suggestion, SuggestionAdmin)
 admin.site.register(Comment, CommentAdmin)
+admin.site.register(Vote, VoteAdmin)

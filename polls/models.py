@@ -98,3 +98,6 @@ class Vote(models.Model):
     date_created = models.DateTimeField(
         default=datetime.now
     )
+
+    def __str__(self):
+        return "Vote {} for {} by {}".format(self.opinion, self.suggestion, self.submitter)
