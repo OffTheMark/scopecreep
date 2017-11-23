@@ -23,4 +23,5 @@ urlpatterns = [
     url(r'^topics/$', views.TopicsView.as_view(), name='topics'),
     url(r'^topic/(?P<topic_id>[0-9]+)/', include(topic_patterns)),
     url(r'^suggestion/(?P<suggestion_id>[0-9]+)/', include(suggestion_patterns)),
+    url(r'^profile/$', views.ProfileView.as_view(), name='profile'),
 ]

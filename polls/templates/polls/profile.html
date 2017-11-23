@@ -1,0 +1,45 @@
+{% extends "polls/base.html" %}
+
+{% block title %}Profile | ScopeCreep{% endblock %}
+
+{% block template_content %}
+    <div class="jumbotron p-4 mb-4">
+        <div class="container">
+            <h2 class="text-muted">
+                Profile
+            </h2>
+            <h1>
+                {{ user.username }}
+            </h1>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h3>
+                    Change password
+                </h3>
+                {% include "polls/profile/change_password_form.html" %}
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col">
+                <h3>
+                    My topics
+                </h3>
+                {% for topic in topics.all %}
+                    <div class="row mb-2">
+                        <div class="col">
+                            {% include "polls/topics/topic_item.html" %}
+                        </div>
+                    </div>
+                {% empty %}
+                    <div class="alert alert-secondary text-center" role="alert">
+                        No topics to display.
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

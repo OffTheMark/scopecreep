@@ -16,6 +16,11 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="{% url "polls:profile" %}" class="nav-link">
+                        Profile
+                    </a>
+                </li>
+                <li class="nav-item">
                     <form class="form-inline" method="post" action="{% url 'polls:signout' %}">
                         {% csrf_token %}
                         <button type="submit" class="btn btn-outline-primary">

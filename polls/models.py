@@ -25,6 +25,9 @@ class Topic(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        ordering = ["-date_created"]
+
 
 class Suggestion(models.Model):
     topic = models.ForeignKey(
