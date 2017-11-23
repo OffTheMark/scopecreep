@@ -159,6 +159,10 @@ class ChangePasswordForm(forms.Form):
         )
     )
 
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop("user", None)
+        super(ChangePasswordForm, self).__init__(*args, **kwargs)
+
     def clean(self):
         cleaned_data = super(ChangePasswordForm, self).clean()
         password = cleaned_data.get("password")
@@ -166,3 +170,5 @@ class ChangePasswordForm(forms.Form):
 
         if password != confirm_password:
             raise forms.ValidationError("Passwords don't match.")
+        if self.user.check_password(password):
+            raise forms.ValidationError("New password is the same as current password.")

@@ -168,6 +168,9 @@ class ProfileView(LoginRequiredMixin, generic.FormView):
     template_name = "polls/profile.html"
     form_class = ChangePasswordForm
 
+    def get_form(self, form_class=None):
+        return ChangePasswordForm(self.request.POST, user=self.request.user)
+
     def form_valid(self, form):
         password = form.cleaned_data.get("password")
         user = self.request.user
@@ -179,7 +182,7 @@ class ProfileView(LoginRequiredMixin, generic.FormView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse("polls:profile")
+        return reverse("polls:profile") + "?status=success"
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
